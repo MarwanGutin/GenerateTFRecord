@@ -22,6 +22,7 @@ import pandas as pd
 import io
 import xml.etree.ElementTree as ET
 import argparse
+import numpy as np
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Suppress TensorFlow logging (1)
 import tensorflow.compat.v1 as tf
@@ -124,10 +125,49 @@ def create_tf_example(group, path):
     classes = []
 
     for index, row in group.object.iterrows():
-        xmins.append(row['xmin'] / width)
-        xmaxs.append(row['xmax'] / width)
-        ymins.append(row['ymin'] / height)
-        ymaxs.append(row['ymax'] / height)
+        #xmins.append(row['xmin'] / width)
+        #xmaxs.append(row['xmax'] / width)
+        #ymins.append(row['ymin'] / height)
+        #ymaxs.append(row['ymax'] / height)
+        
+        auxx = []
+        auxy = []
+        xmn = row['xmin'] / width
+        if xmn < 0.0:
+            xmn = 0.0
+        elif xmn > 1.0:
+            xmn = 1.0
+        #xmins.append(xmn)
+
+        xmx = row['xmax'] / width
+        if xmx < 0.0:
+            xmx = 0.0
+        elif xmx > 1.0:
+            xmx = 1.0
+        #xmaxs.append(xmx)
+
+        ymn = row['ymin'] / height
+        if ymn < 0.0:
+            ymn = 0.0
+        elif ymn > 1.0:
+            ymn = 1.0
+        #ymins.append(ymn)
+
+        ymx = row['ymax'] / height
+        if ymx < 0.0:
+            ymx = 0.0
+        elif ymx > 1.0:
+            ymx = 1.0
+        #ymaxs.append(ymx)
+
+        auxx.append(xmn)
+        auxx.append(xmx)
+        auxy.append(ymn)
+        auxy.append(ymn)
+        xmin_new = np.min(auxx)
+        xmax_new = np.max(auxx)
+        ymin_new = np.min(auxy)
+        ymax_new = np.max(auxy)
         classes_text.append(row['class'].encode('utf8'))
         classes.append(class_text_to_int(row['class']))
 
