@@ -168,7 +168,7 @@ def create_tf_example(group, path):
         xmax_new = np.max(auxx)
         ymin_new = np.min(auxy)
         ymax_new = np.max(auxy)
-        print(xmin_new)
+        #print(xmin_new)
         xmins.append(xmin_new)
         xmaxs.append(xmax_new)
         ymins.append(ymin_new)
