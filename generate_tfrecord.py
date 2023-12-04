@@ -169,8 +169,10 @@ def create_tf_example(group, path):
         ymin_new = np.min(auxy)
         ymax_new = np.max(auxy)
         print(xmin_new)
-        #xmins = xmin_new
-        #xmaxs.append(xmax_new)
+        xmins.append(xmin_new)
+        xmaxs.append(xmax_new)
+        ymins.append(ymin_new)
+        ymaxs.append(ymax_new)
         classes_text.append(row['class'].encode('utf8'))
         classes.append(class_text_to_int(row['class']))
 
