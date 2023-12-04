@@ -34,7 +34,7 @@ from collections import namedtuple
 parser = argparse.ArgumentParser(
     description="Sample TensorFlow XML-to-TFRecord converter")
 parser.add_argument("-x",
-                    "--xml_dir",
+                    "--csv_dir",
                     help="Path to the folder where the input .xml files are stored.",
                     type=str)
 parser.add_argument("-l",
@@ -197,7 +197,8 @@ def main(_):
 
     writer = tf.python_io.TFRecordWriter(args.output_path)
     path = os.path.join(args.image_dir)
-    examples = xml_to_csv(args.xml_dir)
+    #examples = xml_to_csv(args.xml_dir)
+    examples = (args.csv_dir)
     grouped = split(examples, 'filename')
     for group in grouped:
         tf_example = create_tf_example(group, path)
